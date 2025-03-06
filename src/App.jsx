@@ -4,9 +4,6 @@ import './App.css';
 
 function App() {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [comment, setComment] = useState('');
-  const [comments, setComments] = useState([]);
-  const [pendingComments, setPendingComments] = useState([]);
 
   const handleImageClick = (imageUrl) => {
     setSelectedImage(imageUrl);
@@ -14,36 +11,6 @@ function App() {
 
   const closeModal = () => {
     setSelectedImage(null);
-  };
-
-  const handleCommentSubmit = (e) => {
-    e.preventDefault();
-    if (comment.trim()) {
-      const newComment = {
-        id: Date.now(),
-        text: comment,
-        approved: false,
-        author: 'Anônimo',
-        timestamp: new Date().toLocaleString(),
-      };
-      setPendingComments([...pendingComments, newComment]);
-      setComment('');
-      alert('Comentário enviado para aprovação! Aguarde a revisão.');
-    }
-  };
-
-  const approveComment = (id) => {
-    const commentToApprove = pendingComments.find((c) => c.id === id);
-    if (commentToApprove) {
-      setComments([...comments, { ...commentToApprove, approved: true }]);
-      setPendingComments(pendingComments.filter((c) => c.id !== id));
-      alert('Comentário aprovado e publicado!');
-    }
-  };
-
-  const rejectComment = (id) => {
-    setPendingComments(pendingComments.filter((c) => c.id !== id));
-    alert('Comentário rejeitado.');
   };
 
   return (
@@ -329,86 +296,6 @@ function App() {
         <Send className="w-5 h-5" />
         <span>Enviar Mensagem</span>
       </a>
-
-      {/* Comments Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-3xl font-bold mb-8 text-gray-800">Comentários</h2>
-
-          {/* Formulário de Comentário */}
-          <form onSubmit={handleCommentSubmit} className="mb-8">
-            <textarea
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              placeholder="Deixe seu comentário aqui..."
-              className="w-full p-4 border border-gray-300 rounded-md resize-none h-24 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors"
-            >
-              Enviar Comentário
-            </button>
-          </form>
-
-          {/* Comentários Aprovados */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-gray-700">
-              Comentários Aprovados
-            </h3>
-            {comments.length === 0 ? (
-              <p className="text-gray-500">Nenhum comentário aprovado ainda.</p>
-            ) : (
-              comments.map((comment) => (
-                <div
-                  key={comment.id}
-                  className="p-4 bg-gray-50 border border-gray-200 rounded-md"
-                >
-                  <p className="text-gray-800">{comment.text}</p>
-                  <p className="text-gray-500 text-sm">
-                    {comment.author} - {comment.timestamp}
-                  </p>
-                </div>
-              ))
-            )}
-          </div>
-
-          {/* Comentários Pendentes (visíveis apenas para você, o administrador) */}
-          {pendingComments.length > 0 && (
-            <div className="mt-8">
-              <h3 className="text-xl font-semibold text-gray-700">
-                Comentários Pendentes (Aprovação)
-              </h3>
-              {pendingComments.map((pending) => (
-                <div
-                  key={pending.id}
-                  className="p-4 bg-gray-50 border border-gray-200 rounded-md mt-4"
-                >
-                  <p className="text-gray-800">{pending.text}</p>
-                  <p className="text-gray-500 text-sm">
-                    {pending.author} - {pending.timestamp}
-                  </p>
-                  <div className="mt-2 flex gap-2">
-                    <button
-                      onClick={() => approveComment(pending.id)}
-                      className="bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600 transition-colors"
-                    >
-                      Aprovar
-                    </button>
-                    <button
-                      onClick={() => rejectComment(pending.id)}
-                      className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition-colors"
-                    >
-                      Rejeitar
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="mt-16 text-center py-4 text-gray-500 text-sm">
