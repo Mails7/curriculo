@@ -46,7 +46,9 @@ function App() {
                   <Mail className="w-6 h-6" />
                 </a>
                 <a
-                  href="https://t.me/@MAIL963?text=Olá%20Mailson,%20vi%20seu%20currículo%20online!"
+                  href="https://wa.me/5589999719144?text=Olá%20Mailson,%20vi%20seu%20currículo%20online!"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-white hover:text-blue-200"
                 >
                   <Send className="w-6 h-6" />
@@ -286,12 +288,12 @@ function App() {
         </div>
       )}
 
-      {/* Telegram Button */}
+      {/* WhatsApp Button (CTA) */}
       <a
-        href="https://t.me/@MAIL963?text=Olá%20Mailson,%20vi%20seu%20currículo%20online!"
+        href="https://wa.me/5589999719144?text=Olá%20Mailson,%20vi%20seu%20currículo%20online!"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 bg-blue-500 text-white px-6 py-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors flex items-center gap-2"
+        className="fixed bottom-6 right-6 bg-green-500 text-white px-6 py-3 rounded-full shadow-lg hover:bg-green-600 transition-colors flex items-center gap-2"
       >
         <Send className="w-5 h-5" />
         <span>Enviar Mensagem</span>
